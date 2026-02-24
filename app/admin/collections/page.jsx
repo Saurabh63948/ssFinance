@@ -32,9 +32,9 @@ export default function CollectionsPage() {
     }
   };
 
-  // useEffect(() => {
-  //   fetchDailyTasks();
-  // }, []);
+  useEffect(() => {
+    fetchDailyTasks();
+  }, []);
 
   const todayStr = new Date().toDateString();
 
