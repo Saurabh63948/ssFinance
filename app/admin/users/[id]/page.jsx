@@ -22,7 +22,7 @@ export default function UserDetailPage() {
   const [lateFine, setLateFine] = useState("0");
   const [collectionDate, setCollectionDate] = useState(new Date().toISOString().split('T')[0]);
   const [remarks, setRemarks] = useState("EMI Collection");
-  const [editingId, setEditingId] = useState(null); // Track if we are editing
+  const [editingId, setEditingId] = useState(null); 
 
   // Extension States
   const [showExtension, setShowExtension] = useState(false);
@@ -35,7 +35,7 @@ export default function UserDetailPage() {
     setUser(data);
   };
 
-  // useEffect(() => { fetchUser(); }, [id]);
+  useEffect(() => { fetchUser(); }, [id]);
 
   if (!user) return (
     <div className="h-screen flex flex-col items-center justify-center bg-[#F8FAFC]">

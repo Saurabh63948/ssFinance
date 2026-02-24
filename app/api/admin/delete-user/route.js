@@ -17,8 +17,6 @@ export async function POST(req) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
 
-  // i will do code for delete image from cloudnary later
-
     return NextResponse.json({ 
       message: `Borrower ${deletedUser.name} and all associated records deleted.` 
     });

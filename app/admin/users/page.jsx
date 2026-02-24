@@ -69,6 +69,38 @@ export default function BorrowersPage() {
     finally { setLoading(false); }
   };
 
+const handleDelete = async (userId) => {
+    if (!confirm("are you sure you want to delete this user")) return;
+    
+    try {
+      const res = await fetch(`/api/admin/delete-user?userId=${userId}`, { method: "DELETE" });
+      if (res.ok) {
+        toast.success("Account deleted successfully!");
+        fetchUsers();
+        setActiveMenu(null);
+      } else {
+        toast.error("Delete failed");
+      }
+    } catch (err) {
+      toast.error("Network error while deleting");
+    }
+  };
+  
+  const handleEditClick = (user) => {
+    setEditingId(user._id);
+    setFormData({
+      name: user.name,
+      phoneNumber: user.phoneNumber,
+      aadhaarNumber: user.aadhaarNumber,
+      principalAmount: user.loanDetails?.principalAmount || "",
+      interestRate: user.loanDetails?.interestRate || "10",
+      startDate: user.loanDetails?.startDate ? user.loanDetails.startDate.split('T')[0] : "",
+      endDate: user.loanDetails?.endDate ? user.loanDetails.endDate.split('T')[0] : "",
+    });
+    setShowModal(true);
+    setActiveMenu(null);
+  };
+
   return (
     <div className="flex min-h-screen bg-[#F1F5F9] text-slate-900 font-sans">
       
@@ -184,13 +216,13 @@ export default function BorrowersPage() {
                         <MoreVertical size={20} className="text-slate-400" />
                       </button>
                       
-                      {/* FIX: Increased z-index and absolute positioning */}
+                     
                       {activeMenu === user._id && (
                         <div ref={menuRef} className="absolute right-10 top-0 z-[100] bg-white border border-slate-200 shadow-2xl rounded-2xl p-2 min-w-[180px]">
                           <MenuOption icon={<ArrowUpRight size={16}/>} label="Open Ledger" onClick={() => router.push(`/admin/users/${user._id}`)} />
-                          <MenuOption icon={<Edit3 size={16}/>} label="Edit Account" onClick={() => {}} />
+                          <MenuOption icon={<Edit3 size={16}/>} label="Edit Account" onClick={() => {handleEditClick(user)}} />
                           <div className="h-px bg-slate-100 my-1 mx-2"></div>
-                          <MenuOption icon={<Trash2 size={16}/>} label="Delete" onClick={() => {}} danger />
+                          <MenuOption icon={<Trash2 size={16}/>} label="Delete" onClick={() => {handleDelete(user?._id)}} danger />
                         </div>
                       )}
                     </td>
