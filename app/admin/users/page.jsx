@@ -116,7 +116,7 @@ const handleDelete = async (userId) => {
         </div>
         
         <nav className="flex-1 px-4 space-y-1">
-          <NavItem icon={<LayoutDashboard size={20}/>} label="Overview" onClick={() => router.push("/admin")} />
+          <NavItem icon={<LayoutDashboard size={20}/>} label="Overview" onClick={() => router.push("/admin/dashboard")} />
           <NavItem icon={<Users size={20}/>} label="Borrowers" active onClick={() => router.push("/admin/users")} />
           <NavItem icon={<Wallet size={20}/>} label="Collections" onClick={() => router.push("/admin/collections")} />
           <NavItem icon={<FileText size={20}/>} label="Reports" onClick={() => router.push("/admin/reports")} />
